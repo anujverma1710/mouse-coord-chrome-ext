@@ -51,7 +51,6 @@ $('body').mousedown(function(e) {
                 .appendTo(li);
         });
     }
-
     if($('#newList li#File ul.sublists').has('li').length==0){
         if(e.target.className == 'ui-all-File'){
             $("#newList li#File").append('<ul class="sublists"><li><a>Share</li></ul>');
@@ -59,14 +58,17 @@ $('body').mousedown(function(e) {
             $('#newList li#File ul.sublists').append('<li><a>New</li>');
             $('#newList li#File ul.sublists').append('<li><a>Open</li>');
             $('#newList li#File ul.sublists').append('<li><a>Download</li>');
+        }
+        }else{
+            if(e.target.className == 'ui-all-File'){
+                $('#newList li#File ul.sublists').remove()
+            }
+        }
+    check_mouse_button(e, pos);
 
-        }
-    }else{
-        if(e.target.className == 'ui-all-File'){
-            $('#newList li#File ul.sublists').remove()
-        }
-    }
-    
+});
+
+function check_mouse_button(e, pos){
     //The event.which is an inbuilt property in jQuery which 
     //is used to return which keyboard key or mouse button was pressed for the event
     switch (e.which) {
@@ -77,8 +79,9 @@ $('body').mousedown(function(e) {
                 document.querySelector("#dialog > p").remove();
             }
             $('#dialog').append('<P>Left Mouse button pressed.' + "\nX: " + e.clientX + "\nY: " + e.clientY + "\n Element: " + e.target.innerText);
-            
-            $("#dialog").dialog("option", "position",pos);
+            if(!$('#dialog').dialog('isOpen')){
+                $("#dialog").dialog("option", "position",pos);
+            }
             fix_positions_based_on_coord(e);
             break;
         // middle click
@@ -88,7 +91,9 @@ $('body').mousedown(function(e) {
                 document.querySelector("#dialog > p").remove();
             }
             $('#dialog').append('<P>Middle Mouse button pressed.' + "\nX: " + e.clientX + "\nY: " + e.clientY + "\n Element: " + e.target.innerText);
-            $("#dialog").dialog("option", "position",pos);
+            if(!$('#dialog').dialog('isOpen')){
+                $("#dialog").dialog("option", "position",pos);
+            }
             fix_positions_based_on_coord(e);
             break;
         // Right click
@@ -98,15 +103,16 @@ $('body').mousedown(function(e) {
                 document.querySelector("#dialog > p").remove();
             }
             $('#dialog').append('<P>Right Mouse button pressed.' + "\nX: " + e.clientX + "\nY: " + e.clientY + "\n Element: " + e.target.innerText);
-            $("#dialog").dialog("option", "position",pos);
+            if(!$('#dialog').dialog('isOpen')){
+                $("#dialog").dialog("option", "position",pos);
+            }
             fix_positions_based_on_coord(e);
             break;
         default:
             console.log('You have a strange Mouse!'+ "\nX: " + e.clientX + "\nY: " + e.clientY + "\n Element: " + e.target.innerText);
     }
     $('#dialog').dialog("open");
-
-});
+}
 
 $('body').dblclick(function(e) {
         if(document.getElementById("dialog")==null){
@@ -176,7 +182,9 @@ $('body').dblclick(function(e) {
         }
 
         $('#dialog').append('<P>Double click pressed.' + "\nX: " + e.clientX + "\nY: " + e.clientY + "\n Element: " + e.target.innerText);
-        $("#dialog").dialog("option", "position",pos);
+        if(!$('#dialog').dialog('isOpen')){
+            $("#dialog").dialog("option", "position",pos);
+        }
 
         fix_positions_based_on_coord(e);
 
