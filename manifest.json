@@ -13,9 +13,11 @@
 				"<all_urls>"
 			],
 			"js": [
-				"jquery-2.1.4.min.js",
+				"jquery-3.1.1.min.js",
+				"jquery-ui.min.js",
 				"content.js"
-			]
+			],
+			"css": ["jquery-ui.css"]
 		}
 	],
 	"browser_action": {
